@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import Foundation
 
 class ViewController: UIViewController {
 
 	@IBOutlet var rollResult: UILabel!
+	var timer: Timer!
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
@@ -22,9 +25,15 @@ class ViewController: UIViewController {
 	}
 
 	@IBAction func rollButton(_ sender: AnyObject) {
+		rollResult.text = " "
+		timer = Timer.scheduledTimer(timeInterval: 0.5, target:self, selector: #selector(ViewController.printResult), userInfo: nil, repeats: true)
+		
+	}
+	
+	func printResult() {
 		let r = arc4random_uniform(2) + 3
 		rollResult.text = "\(r)"
-		
+		timer.invalidate()
 	}
 
 }
